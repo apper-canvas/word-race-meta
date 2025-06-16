@@ -1,0 +1,20 @@
+[
+  {
+    "id": "p1",
+    "name": "Player 1",
+    "score": 0,
+    "color": "#5B21B6",
+    "gamesPlayed": 0,
+    "wordsFormed": 0,
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "p2",
+    "name": "Player 2", 
+    "score": 0,
+    "color": "#EC4899",
+    "gamesPlayed": 0,
+    "wordsFormed": 0,
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  }
+]

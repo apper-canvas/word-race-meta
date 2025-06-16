@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "players": [
+      {
+        "id": "p1",
+        "name": "Player 1",
+        "score": 0,
+        "color": "#5B21B6"
+      },
+      {
+        "id": "p2", 
+        "name": "Player 2",
+        "score": 0,
+        "color": "#EC4899"
+      }
+    ],
+    "currentPlayerIndex": 0,
+    "usedNumbers": [],
+    "status": "waiting",
+    "createdAt": "2024-01-15T10:00:00.000Z"
+  }
+]

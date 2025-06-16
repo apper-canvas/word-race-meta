@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "number": 1,
+    "letters": ["R", "A", "C", "E", "S", "T", "I", "N", "G"],
+    "possibleWords": ["RACE", "CARE", "ACES", "CASE", "NEAR", "GEAR", "TEAR", "STAR", "CART", "REST", "NEST", "SING", "RING", "CARS", "RATS", "ARTS", "RANT", "CAST", "EAST", "NICE", "RICE", "SITE", "TIES", "NETS", "TENS", "CREATING", "REACTING", "CATERING"]
+  },
+  {
+    "id": "2", 
+    "number": 2,
+    "letters": ["F", "L", "O", "W", "E", "R", "S", "P", "A", "R", "K"],
+    "possibleWords": ["FLOW", "SLOW", "PORK", "WORK", "FOLK", "WOLF", "SOAP", "PARK", "SPARK", "FLASK", "FLAKE", "SPEAR", "SPEAK", "OWER", "LOWER", "POWER", "SPOKE", "PROSE", "AROSE", "WORSE", "PROSE", "WORKS", "FLOWS", "POWERS", "FLOWERS", "SPARKLE"]
+  },
+  {
+    "id": "3",
+    "number": 3, 
+    "letters": ["M", "O", "U", "N", "T", "A", "I", "N", "S", "K", "Y"],
+    "possibleWords": ["MOUNT", "MOUNTAIN", "MOUSY", "MINUS", "UNITY", "NASTY", "SAINT", "STAIN", "MOIST", "NOISY", "YOUNG", "YEAST", "TOAST", "ROAST", "TANKS", "STUNK", "YOUTH", "MOUTH", "SOUTH", "STONY", "DUSTY", "MUSTY", "DUSTY", "TUSKY", "SMOKY", "MOUSY", "DUSTY"]
+  },
+  {
+    "id": "4",
+    "number": 4,
+    "letters": ["B", "R", "I", "G", "H", "T", "S", "U", "N", "L", "I", "G", "H", "T"],
+    "possibleWords": ["BRIGHT", "LIGHT", "RIGHT", "SIGHT", "NIGHT", "TIGHT", "LIGHT", "GRINS", "GIRLS", "SHIRT", "RINGS", "BRINGS", "THINGS", "LIGHTS", "NIGHTS", "RIGHTS", "BRIGHTS", "SUNLIGHT"]
+  },
+  {
+    "id": "5",
+    "number": 5,
+    "letters": ["O", "C", "E", "A", "N", "W", "A", "V", "E", "S"],
+    "possibleWords": ["OCEAN", "WAVE", "WAVES", "SAVE", "CASE", "CAVE", "VASE", "NOSE", "CONE", "ONCE", "WOVE", "COVE", "OVEN", "SANE", "VANE", "ACNE", "CANOE", "CANVAS", "OCTAVE"]
+  },
+  {
+    "id": "6",
+    "number": 6,
+    "letters": ["D", "R", "A", "G", "O", "N", "F", "I", "R", "E"],
+    "possibleWords": ["DRAGON", "FIRE", "FORGE", "RIDGE", "ANGER", "RANGE", "GRADE", "GRAND", "DANGER", "FINGER", "IGNORE", "REGION", "ORANGE", "GARDON", "FORGED", "DRAGON", "FINGER"]
+  },
+  {
+    "id": "7", 
+    "number": 7,
+    "letters": ["C", "A", "S", "T", "L", "E", "M", "A", "G", "I", "C"],
+    "possibleWords": ["CASTLE", "MAGIC", "MAGICS", "CLAIMS", "SCALED", "PLACES", "CLAMPS", "CLAMS", "SCALE", "PLACE", "CLAMP", "CLAIM", "SLICE", "SMILE", "MILES", "LIMES", "GAMES", "STAGE", "CAGES", "MAGIC", "CASTLE"]
+  },
+  {
+    "id": "8",
+    "number": 8,
+    "letters": ["S", "T", "A", "R", "L", "I", "G", "H", "T", "N", "I", "G", "H", "T"],
+    "possibleWords": ["STARLIGHT", "LIGHT", "NIGHT", "RIGHT", "SIGHT", "TIGHT", "LIGHTS", "NIGHTS", "RIGHTS", "SIGHTS", "STARLING", "SINGLET", "TANGLES", "STRANGE", "LARGEST", "TRIANGLE", "STARLIGHT"]
+  },
+  {
+    "id": "9",
+    "number": 9,
+    "letters": ["T", "H", "U", "N", "D", "E", "R", "S", "T", "O", "R", "M"],
+    "possibleWords": ["THUNDER", "STORM", "STORMS", "HUNTERS", "HUNTED", "TURNED", "SORTED", "STORED", "MODERN", "HORNET", "HONEST", "HONEST", "MOTHER", "MONTHS", "SHORTS", "THORNS", "STORMS", "THUNDERSTORM"]
+  },
+  {
+    "id": "10",
+    "number": 10,
+    "letters": ["R", "A", "I", "N", "B", "O", "W", "C", "O", "L", "O", "R", "S"],
+    "possibleWords": ["RAINBOW", "COLORS", "CROWNS", "CLOWNS", "CORONA", "CABINS", "ROBINS", "BOARS", "ROARS", "SOLAR", "CORAL", "CAROLS", "COLORS", "CROWNS", "BROWNS", "RAINBOWS"]
+  },
+  {
+    "id": "11",
+    "number": 11,
+    "letters": ["A", "D", "V", "E", "N", "T", "U", "R", "E", "L", "A", "N", "D"],
+    "possibleWords": ["ADVENTURE", "ADVENTURED", "NATURE", "TURNED", "LEARNED", "DEALER", "LEADER", "RENDER", "TENDER", "SENDER", "ANDER", "UNDER", "TRADE", "TREND", "THREAD", "ADVENT", "VENTURE", "ADVENTURE"]
+  },
+  {
+    "id": "12",
+    "number": 12,
+    "letters": ["M", "Y", "S", "T", "I", "C", "F", "O", "R", "E", "S", "T"],
+    "possibleWords": ["MYSTIC", "FOREST", "FROSTS", "CRYSTALS", "MYSTICS", "STORIES", "FACTORY", "SATISFY", "RECTIFY", "CERTIFY", "FROSTY", "STORMY", "MOSTLY", "COSTLY", "SOFTLY", "FORESTS", "MYSTIC", "FOREST"]
+  },
+  {
+    "id": "13",
+    "number": 13,
+    "letters": ["G", "A", "L", "A", "X", "Y", "S", "T", "A", "R", "S", "H", "I", "P"],
+    "possibleWords": ["GALAXY", "STARSHIP", "GALAXY", "STARTS", "GRAPHS", "SPLASH", "PARISH", "PALISH", "GRAYS", "PLAYS", "SHARP", "HARPS", "GRASP", "PHYLA", "SHIPS", "TRIPS", "GRIPS", "STRIP", "STARSHIP", "GALAXY"]
+  },
+  {
+    "id": "14",
+    "number": 14,
+    "letters": ["W", "I", "Z", "A", "R", "D", "S", "P", "E", "L", "L", "B", "O", "O", "K"],
+    "possibleWords": ["WIZARD", "SPELLBOOK", "SPELLS", "WIZARD", "SPOKE", "SLOPE", "POLES", "ROLES", "BORED", "ROBED", "BOLD", "SOLD", "TOLD", "BOOK", "LOOK", "TOOK", "COOK", "POOR", "DOOR", "LOOP", "POOL", "COOL", "WOOL", "SPELLBOOK", "WIZARD"]
+  },
+  {
+    "id": "15",
+    "number": 15,
+    "letters": ["P", "I", "R", "A", "T", "E", "T", "R", "E", "A", "S", "U", "R", "E"],
+    "possibleWords": ["PIRATE", "TREASURE", "TREASURES", "PIRATES", "RESTARE", "STEARER", "TEASER", "SEATER", "EASTER", "RASTER", "TASTER", "PASTER", "FASTER", "RATERS", "TATERS", "WATERS", "PIRATE", "TREASURE"]
+  },
+  {
+    "id": "16",
+    "number": 16,
+    "letters": ["E", "N", "C", "H", "A", "N", "T", "E", "D", "G", "A", "R", "D", "E", "N"],
+    "possibleWords": ["ENCHANTED", "GARDEN", "GARDENS", "ENCHANT", "CHARGED", "CHANGED", "RANCHED", "TEACHER", "REACHED", "CHEATED", "CREATED", "TREATED", "GRANTED", "CENTERED", "ENTERED", "RENTED", "TENDED", "ENDED", "ENCHANTED", "GARDEN"]
+  },
+  {
+    "id": "17",
+    "number": 17,
+    "letters": ["C", "R", "Y", "S", "T", "A", "L", "C", "A", "V", "E", "R", "N"],
+    "possibleWords": ["CRYSTAL", "CAVERN", "CAVERNS", "CRYSTALS", "TRAVELS", "SEVERAL", "LATERAL", "CENTRAL", "NEUTRAL", "NATURAL", "VENTRAL", "VETERAN", "EASTERN", "WESTERN", "LYCRA", "SCARY", "CARRY", "CRYSTAL", "CAVERN"]
+  },
+  {
+    "id": "18",
+    "number": 18,
+    "letters": ["A", "N", "C", "I", "E", "N", "T", "T", "E", "M", "P", "L", "E"],
+    "possibleWords": ["ANCIENT", "TEMPLE", "TEMPLES", "ANCIENTS", "TEMPLAR", "CLIMATE", "COMPLIANT", "CAPTAIN", "PATENTS", "TALENTS", "LANCETS", "CANTLES", "CENTRALS", "LECTERN", "CENTER", "RECENT", "DECENT", "ANCIENT", "TEMPLE"]
+  },
+  {
+    "id": "19",
+    "number": 19,
+    "letters": ["S", "P", "A", "C", "E", "S", "H", "I", "P", "J", "O", "U", "R", "N", "E", "Y"],
+    "possibleWords": ["SPACESHIP", "JOURNEY", "JOURNEYS", "SPACESHIPS", "ERSHIP", "PUSHIER", "HIPSTER", "ERSHIP", "PUSHES", "RUSHED", "HUSHER", "JOSHER", "POSHER", "KOSHER", "CHOSEN", "PERSON", "REASON", "SEASON", "SPACESHIP", "JOURNEY"]
+  },
+  {
+    "id": "20",
+    "number": 20,
+    "letters": ["U", "N", "I", "V", "E", "R", "S", "E", "S", "E", "C", "R", "E", "T", "S"],
+    "possibleWords": ["UNIVERSE", "SECRETS", "UNIVERSES", "SEVEREST", "RESERVES", "REVERSES", "TRUSTEES", "INTERESTS", "SINCEREST", "REVERENT", "TERSE", "VERSE", "SERVE", "NEVER", "SEVEN", "EVENT", "ENTER", "RESET", "STEER", "TREES", "UNIVERSE", "SECRETS"]
+  }
+]
