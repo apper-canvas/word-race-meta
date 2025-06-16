@@ -53,13 +53,33 @@ class PuzzleService {
     return { success: true };
   }
 
-  async shuffleLetters(puzzleId) {
+async shuffleLetters(puzzleId) {
     await delay(200);
     const puzzle = await this.getById(puzzleId);
     if (!puzzle) throw new Error('Puzzle not found');
     
-    const shuffled = [...puzzle.letters].sort(() => Math.random() - 0.5);
+    // Ensure letters are always scrambled (never in original order)
+    const original = [...puzzle.letters];
+    let shuffled = [...original];
+    
+    // Keep shuffling until we get a different arrangement
+    do {
+      shuffled = shuffled.sort(() => Math.random() - 0.5);
+    } while (shuffled.every((letter, index) => letter === original[index]) && original.length > 1);
+    
     return shuffled;
+  }
+
+  // Enhanced method to get puzzle with guaranteed scrambled letters
+  async getPuzzleWithScrambledLetters(puzzleId) {
+    const puzzle = await this.getById(puzzleId);
+    if (!puzzle) return null;
+    
+    const scrambledLetters = await this.shuffleLetters(puzzleId);
+    return {
+      ...puzzle,
+      letters: scrambledLetters
+    };
   }
 }
 

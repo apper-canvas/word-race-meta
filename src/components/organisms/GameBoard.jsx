@@ -21,19 +21,22 @@ const GameBoard = ({
   const [currentLetters, setCurrentLetters] = useState([]);
   const [usedLetters, setUsedLetters] = useState([]);
   const [timerActive, setTimerActive] = useState(false);
-  const [gamePhase, setGamePhase] = useState('selecting'); // selecting, playing, result
+const [gamePhase, setGamePhase] = useState('selecting'); // selecting, playing, result
   const [currentWord, setCurrentWord] = useState('');
   const [loading, setLoading] = useState(false);
+  const [sharedPuzzleActive, setSharedPuzzleActive] = useState(false);
   
-  const currentPlayer = game.players[game.currentPlayerIndex];
-  const otherPlayer = game.players[1 - game.currentPlayerIndex];
+  // Both players work together - no current player concept
+  const player1 = game.players[0];
+  const player2 = game.players[1];
   
-  const handleNumberSelect = async (number) => {
-    if (gamePhase !== 'selecting') return;
+const handleNumberSelect = async (number) => {
+    if (gamePhase !== 'selecting' || sharedPuzzleActive) return;
     
     try {
       setLoading(true);
-      const puzzle = await puzzleService.getByNumber(number);
+      // Get puzzle with guaranteed scrambled letters
+      const puzzle = await puzzleService.getPuzzleWithScrambledLetters(number);
       if (puzzle) {
         setSelectedNumber(number);
         setCurrentPuzzle(puzzle);
@@ -41,7 +44,8 @@ const GameBoard = ({
         setUsedLetters([]);
         setGamePhase('playing');
         setTimerActive(true);
-        toast.success(`${currentPlayer.name} selected number ${number}!`);
+        setSharedPuzzleActive(true);
+        toast.success(`Puzzle ${number} loaded! Both players work together to solve it!`);
       }
     } catch (error) {
       toast.error('Failed to load puzzle');
@@ -50,7 +54,7 @@ const GameBoard = ({
     }
   };
   
-  const handleWordSubmit = async (word) => {
+const handleWordSubmit = async (word) => {
     if (gamePhase !== 'playing') return;
     
     try {
@@ -60,23 +64,23 @@ const GameBoard = ({
       const validation = await wordService.validateWord(word, currentLetters);
       
       if (validation.valid) {
-        // Update player score
-        const updatedPlayers = game.players.map(player => 
-          player.id === currentPlayer.id 
-            ? { ...player, score: player.score + validation.points }
-            : player
-        );
+        // Both players share the points for cooperative solving
+        const pointsPerPlayer = Math.ceil(validation.points / 2);
+        const updatedPlayers = game.players.map(player => ({
+          ...player, 
+          score: player.score + pointsPerPlayer
+        }));
         
         const updatedGame = {
           ...game,
           players: updatedPlayers,
           usedNumbers: [...game.usedNumbers, selectedNumber],
-          currentPlayerIndex: (game.currentPlayerIndex + 1) % game.players.length
+          // Remove currentPlayerIndex since both players work together
         };
         
         onGameUpdate(updatedGame);
         
-        toast.success(`Valid word! +${validation.points} points`, {
+        toast.success(`Great teamwork! Both players get +${pointsPerPlayer} points`, {
           autoClose: 2000
         });
         
@@ -101,14 +105,13 @@ const GameBoard = ({
     }
   };
   
-  const handleTimeUp = () => {
+const handleTimeUp = () => {
     setTimerActive(false);
-    toast.warning(`Time's up, ${currentPlayer.name}!`);
+    toast.warning("Time's up! Moving to next puzzle...");
     
     const updatedGame = {
       ...game,
       usedNumbers: [...game.usedNumbers, selectedNumber],
-      currentPlayerIndex: (game.currentPlayerIndex + 1) % game.players.length
     };
     
     onGameUpdate(updatedGame);
@@ -131,6 +134,7 @@ const GameBoard = ({
     setCurrentWord('');
     setGamePhase('selecting');
     setTimerActive(false);
+    setSharedPuzzleActive(false);
   };
   
   const handleLetterClick = (letter, index) => {
@@ -147,11 +151,11 @@ const GameBoard = ({
   };
   
   return (
-    <div className={`max-w-7xl mx-auto p-6 space-y-6 ${className}`}>
-      {/* Player Scores */}
+<div className={`max-w-7xl mx-auto p-6 space-y-6 ${className}`}>
+      {/* Player Scores - Both Active in Cooperative Mode */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <PlayerScore player={currentPlayer} isActive={gamePhase === 'selecting' || gamePhase === 'playing'} />
-        <PlayerScore player={otherPlayer} isActive={false} />
+        <PlayerScore player={player1} isActive={gamePhase === 'playing' || gamePhase === 'selecting'} />
+        <PlayerScore player={player2} isActive={gamePhase === 'playing' || gamePhase === 'selecting'} />
       </div>
       
       {/* Game Status */}
@@ -167,12 +171,12 @@ const GameBoard = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-            >
+>
               <h2 className="text-2xl font-heading text-white mb-2">
-                {currentPlayer.name}'s Turn
+                Team Puzzle Solving
               </h2>
               <p className="text-gray-400">
-                Choose a number to reveal your letters
+                Choose a number to reveal scrambled letters for both players to solve together
               </p>
             </motion.div>
           )}
@@ -185,12 +189,12 @@ const GameBoard = ({
               exit={{ opacity: 0 }}
               className="flex items-center justify-center gap-6"
             >
-              <div>
+<div>
                 <h2 className="text-2xl font-heading text-white mb-2">
-                  Form your word, {currentPlayer.name}!
+                  Work together to form a word!
                 </h2>
                 <p className="text-gray-400">
-                  Puzzle #{selectedNumber} • {currentLetters.length} letters available
+                  Puzzle #{selectedNumber} • {currentLetters.length} scrambled letters • Both players collaborate
                 </p>
               </div>
               <Timer
@@ -222,10 +226,10 @@ const GameBoard = ({
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Number Grid */}
         <div className="xl:col-span-1">
-          <NumberGrid
+<NumberGrid
             usedNumbers={game.usedNumbers}
             selectedNumber={selectedNumber}
-            currentPlayerColor={currentPlayer.color}
+            currentPlayerColor={player1.color}
             onNumberSelect={handleNumberSelect}
           />
         </div>
