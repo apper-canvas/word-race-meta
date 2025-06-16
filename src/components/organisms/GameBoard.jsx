@@ -21,7 +21,7 @@ const GameBoard = ({
   const [currentLetters, setCurrentLetters] = useState([]);
   const [usedLetters, setUsedLetters] = useState([]);
   const [timerActive, setTimerActive] = useState(false);
-const [gamePhase, setGamePhase] = useState('selecting'); // selecting, playing, result
+const [gamePhase, setGamePhase] = useState('selecting'); // selecting, ready, playing, result
   const [currentWord, setCurrentWord] = useState('');
   const [loading, setLoading] = useState(false);
   const [sharedPuzzleActive, setSharedPuzzleActive] = useState(false);
@@ -42,16 +42,23 @@ const handleNumberSelect = async (number) => {
         setCurrentPuzzle(puzzle);
         setCurrentLetters([...puzzle.letters]);
         setUsedLetters([]);
-        setGamePhase('playing');
-        setTimerActive(true);
-        setSharedPuzzleActive(true);
-        toast.success(`Puzzle ${number} loaded! Both players work together to solve it!`);
+        setGamePhase('ready');
+        toast.success(`Puzzle ${number} loaded! Click Play to start!`);
       }
     } catch (error) {
       toast.error('Failed to load puzzle');
     } finally {
       setLoading(false);
     }
+  };
+  
+  const handlePlayStart = () => {
+    if (gamePhase !== 'ready') return;
+    
+    setGamePhase('playing');
+    setTimerActive(true);
+    setSharedPuzzleActive(true);
+    toast.success('Both players work together to solve it!');
   };
   
 const handleWordSubmit = async (word) => {
@@ -164,7 +171,7 @@ const handleTimeUp = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <AnimatePresence mode="wait">
+<AnimatePresence mode="wait">
           {gamePhase === 'selecting' && (
             <motion.div
               key="selecting"
@@ -178,6 +185,32 @@ const handleTimeUp = () => {
               <p className="text-gray-400">
                 Choose a number to reveal scrambled letters for both players to solve together
               </p>
+            </motion.div>
+          )}
+          
+          {gamePhase === 'ready' && (
+            <motion.div
+              key="ready"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center"
+            >
+              <h2 className="text-2xl font-heading text-white mb-2">
+                Puzzle #{selectedNumber} Ready!
+              </h2>
+              <p className="text-gray-400 mb-6">
+                {currentLetters.length} scrambled letters loaded • Both players will work together
+              </p>
+              <Button
+                onClick={handlePlayStart}
+                variant="primary"
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-black font-semibold px-8 py-3 rounded-xl transition-all duration-200 glow-accent"
+              >
+                <ApperIcon name="Play" className="w-5 h-5 mr-2" />
+                Start Game
+              </Button>
             </motion.div>
           )}
           
