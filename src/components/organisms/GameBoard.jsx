@@ -230,37 +230,28 @@ const GameBoard = ({
           />
         </div>
         
-        {/* Letters and Input */}
+{/* Letters and Input */}
         <div className="xl:col-span-2 space-y-6">
           <LetterDisplay
             letters={currentLetters}
             usedLetters={usedLetters.map(index => currentLetters[index])}
             onLetterClick={handleLetterClick}
+            onArrangementChange={(arrangedWord) => {
+              setCurrentWord(arrangedWord);
+            }}
           />
           
           {gamePhase === 'playing' && (
             <div className="space-y-4">
               <WordInput
                 availableLetters={currentLetters}
+                arrangedWord={currentWord}
                 onSubmit={handleWordSubmit}
                 onWordChange={setCurrentWord}
+                onClearArrangement={clearWord}
                 disabled={loading || !timerActive}
                 placeholder="Form your word..."
               />
-              
-              {currentWord && (
-                <div className="flex justify-center">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={clearWord}
-                    className="flex items-center gap-2"
-                  >
-                    <ApperIcon name="RotateCcw" size={16} />
-                    Clear Word
-                  </Button>
-                </div>
-              )}
             </div>
           )}
         </div>

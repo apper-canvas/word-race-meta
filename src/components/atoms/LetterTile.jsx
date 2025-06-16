@@ -4,6 +4,7 @@ const LetterTile = ({
   letter, 
   isUsed = false, 
   isHighlighted = false,
+  isDragging = false,
   size = 'md',
   className = '',
   onClick,
@@ -29,19 +30,27 @@ const LetterTile = ({
           ? 'border-gray-600 text-gray-500 bg-surface-700' 
           : isHighlighted
             ? 'border-accent text-accent glow-accent'
-            : 'border-surface-400 text-white hover:border-primary hover:glow-primary'
+            : isDragging
+              ? 'border-primary text-primary glow-primary bg-surface-600 z-50'
+              : 'border-surface-400 text-white hover:border-primary hover:glow-primary'
         }
+        ${isDragging ? 'shadow-2xl' : ''}
         ${className}
       `}
-      whileHover={!isUsed ? { scale: 1.05, y: -2 } : {}}
-      whileTap={!isUsed ? { scale: 0.95 } : {}}
+      whileHover={!isUsed && !isDragging ? { scale: 1.05, y: -2 } : {}}
+      whileTap={!isUsed && !isDragging ? { scale: 0.95 } : {}}
       initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
+      animate={{ 
+        opacity: 1, 
+        scale: 1,
+        rotateZ: isDragging ? 2 : 0,
+        y: isDragging ? -5 : 0
+      }}
       transition={{ 
         type: "spring",
         stiffness: 260,
         damping: 20,
-        delay: Math.random() * 0.2
+        delay: isDragging ? 0 : Math.random() * 0.2
       }}
       onClick={!isUsed ? onClick : undefined}
       {...props}

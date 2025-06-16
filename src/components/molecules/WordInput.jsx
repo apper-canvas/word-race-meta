@@ -5,14 +5,30 @@ import ApperIcon from '@/components/ApperIcon';
 
 const WordInput = ({ 
   availableLetters = [],
+  arrangedWord = '',
   onSubmit,
   onWordChange,
+  onClearArrangement,
   disabled = false,
   placeholder = "Type your word...",
   className = ''
 }) => {
   const [currentWord, setCurrentWord] = useState('');
   const [shake, setShake] = useState(false);
+  const [inputMethod, setInputMethod] = useState('typing'); // 'typing' or 'dragging'
+  
+  // Sync with arranged word from drag interface
+  useEffect(() => {
+    if (arrangedWord !== currentWord) {
+      if (arrangedWord) {
+        setCurrentWord(arrangedWord);
+        setInputMethod('dragging');
+      } else if (inputMethod === 'dragging') {
+        setCurrentWord('');
+        setInputMethod('typing');
+      }
+    }
+  }, [arrangedWord, currentWord, inputMethod]);
   
   useEffect(() => {
     if (onWordChange) {
@@ -23,6 +39,11 @@ const WordInput = ({
   const handleInputChange = (e) => {
     const value = e.target.value.toUpperCase();
     setCurrentWord(value);
+    setInputMethod('typing');
+    // Clear arrangement when typing
+    if (arrangedWord && onClearArrangement) {
+      onClearArrangement();
+    }
   };
   
   const handleSubmit = (e) => {
@@ -30,6 +51,10 @@ const WordInput = ({
     if (currentWord.length >= 3) {
       onSubmit?.(currentWord);
       setCurrentWord('');
+      setInputMethod('typing');
+      if (onClearArrangement) {
+        onClearArrangement();
+      }
     } else {
       setShake(true);
       setTimeout(() => setShake(false), 500);
@@ -57,6 +82,14 @@ const WordInput = ({
     return true;
   };
   
+  const clearWord = () => {
+    setCurrentWord('');
+    setInputMethod('typing');
+    if (onClearArrangement) {
+      onClearArrangement();
+    }
+  };
+  
   const isValidLength = currentWord.length >= 3;
   const isValidWord = canFormWord(currentWord);
   const canSubmit = isValidLength && isValidWord && !disabled;
@@ -70,7 +103,10 @@ const WordInput = ({
       <div className="mb-4">
         <h2 className="text-xl font-heading text-white mb-2">Form Your Word</h2>
         <p className="text-sm text-gray-400">
-          Minimum 3 letters • Use only available letters
+          {inputMethod === 'dragging' 
+            ? 'Word arranged by dragging • Edit or type to override'
+            : 'Minimum 3 letters • Use only available letters or drag above'
+          }
         </p>
       </div>
       
@@ -80,7 +116,7 @@ const WordInput = ({
             type="text"
             value={currentWord}
             onChange={handleInputChange}
-            placeholder={placeholder}
+            placeholder={arrangedWord ? arrangedWord : placeholder}
             disabled={disabled}
             className={`
               w-full px-4 py-3 bg-surface-700 border-2 rounded-lg
@@ -92,6 +128,7 @@ const WordInput = ({
                 'border-success text-success'
               }
               ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+              ${inputMethod === 'dragging' ? 'border-accent' : ''}
             `}
             maxLength={15}
             whileFocus={{ scale: 1.02 }}
@@ -99,10 +136,16 @@ const WordInput = ({
           
           {currentWord && (
             <motion.div
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
             >
+              {inputMethod === 'dragging' && (
+                <ApperIcon
+                  name="Move"
+                  className="w-4 h-4 text-accent"
+                />
+              )}
               <ApperIcon
                 name={
                   !isValidLength ? 'AlertCircle' :
@@ -120,18 +163,31 @@ const WordInput = ({
         </div>
         
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-400">
-            Length: {currentWord.length}
-            {currentWord.length > 0 && (
-              <span className={`ml-2 ${
-                !isValidLength ? 'text-warning' :
-                !isValidWord ? 'text-error' :
-                'text-success'
-              }`}>
-                {!isValidLength ? 'Too short' :
-                 !isValidWord ? 'Invalid letters' :
-                 'Valid!'}
-              </span>
+          <div className="text-sm text-gray-400 flex items-center gap-4">
+            <span>
+              Length: {currentWord.length}
+              {currentWord.length > 0 && (
+                <span className={`ml-2 ${
+                  !isValidLength ? 'text-warning' :
+                  !isValidWord ? 'text-error' :
+                  'text-success'
+                }`}>
+                  {!isValidLength ? 'Too short' :
+                   !isValidWord ? 'Invalid letters' :
+                   'Valid!'}
+                </span>
+              )}
+            </span>
+            
+            {currentWord && (
+              <button
+                type="button"
+                onClick={clearWord}
+                className="text-gray-500 hover:text-white flex items-center gap-1 text-xs"
+              >
+                <ApperIcon name="X" size={12} />
+                Clear
+              </button>
             )}
           </div>
           
